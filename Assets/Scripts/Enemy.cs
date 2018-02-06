@@ -15,6 +15,13 @@ public class Enemy : MonoBehaviour {
 	Animator anim;
 	Rigidbody2D rb2d;
 
+	// Attack stuff
+	public GameObject rockPrefab;
+	[Tooltip("Attack speed in seconds between consecutive attacks")]
+	public float attackSpeed;
+	bool attacking;
+	Vector3 target;
+
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -46,7 +53,9 @@ public class Enemy : MonoBehaviour {
 
 		if (seesPlayer && (distance < attackRadius)) {
 			// Attack player
-			//anim.Play ("Enemy Walk", -1, 0);
+			if (!attacking) {
+				StartCoroutine(Attack(attackSpeed));
+			}
 		} else {
 			// Move towards player
 			rb2d.MovePosition (transform.position + dir * speed * Time.deltaTime);
@@ -59,5 +68,17 @@ public class Enemy : MonoBehaviour {
 			transform.position = target;
 			anim.SetBool ("walking", false);
 		}
+	}
+
+	IEnumerator Attack(float seconds) {
+		attacking = true;
+
+		if (target != initialPosition && rockPrefab != null) {
+			Instantiate (rockPrefab, transform.position, transform.rotation);
+
+			yield return new WaitForSeconds (seconds);
+		}
+
+		attacking = false;
 	}
 }
