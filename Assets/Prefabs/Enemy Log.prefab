@@ -118,8 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60fa27e7595751a41ab12e86a1872f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRadius: 5
-  attackRadius: 3.5
+  visionRadius: 4
+  attackRadius: 2.5
   speed: 1.5
   rockPrefab: {fileID: 1668373343236258, guid: 578a68e82158d3147af106f2f9b05963, type: 2}
   attackSpeed: 2
