@@ -22,6 +22,9 @@ public class Slash : MonoBehaviour {
 			yield return new WaitForSeconds (secondsUntilDestruction);
 			Destroy (gameObject);
 		} else if (col.tag != "Player" && col.tag != "Attack") {
+			if (col.tag == "Enemy") {
+				col.SendMessage ("Attacked");
+			}
 			Destroy (gameObject);
 		}
 	}

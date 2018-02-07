@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114603445189358940}
   m_Layer: 8
   m_Name: Enemy Log
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,6 +123,8 @@ MonoBehaviour:
   speed: 1.5
   rockPrefab: {fileID: 1668373343236258, guid: 578a68e82158d3147af106f2f9b05963, type: 2}
   attackSpeed: 2
+  maxHP: 3
+  currentHP: 0
 --- !u!114 &114603445189358940
 MonoBehaviour:
   m_ObjectHideFlags: 1

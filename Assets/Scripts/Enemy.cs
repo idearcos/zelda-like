@@ -22,6 +22,9 @@ public class Enemy : MonoBehaviour {
 	bool attacking;
 	Vector3 target;
 
+	public int maxHP = 3;
+	public int currentHP;
+
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
@@ -30,6 +33,8 @@ public class Enemy : MonoBehaviour {
 
 		anim = GetComponent<Animator> ();
 		rb2d = GetComponent<Rigidbody2D> ();
+
+		currentHP = maxHP;
 	}
 	
 	// Update is called once per frame
@@ -43,7 +48,15 @@ public class Enemy : MonoBehaviour {
 
 		bool seesPlayer = (hit.collider != null) && (hit.collider.tag == "Player");
 
-		Vector3 target = seesPlayer ? player.transform.position : initialPosition;
+		// Wake up if asleep and just saw the player
+		if (seesPlayer) anim.SetTrigger("sawPlayer");
+
+		// If asleep, waking up or falling asleep, can't move
+		if (!anim.GetBool ("awake")) {
+			return;
+		}
+
+		target = seesPlayer ? player.transform.position : initialPosition;
 
 		float distance = Vector3.Distance (target, transform.position);
 		Vector3 dir = (target - transform.position).normalized;
@@ -53,20 +66,20 @@ public class Enemy : MonoBehaviour {
 
 		if (seesPlayer && (distance < attackRadius)) {
 			// Attack player
+			anim.SetBool ("attacking", true);
 			if (!attacking) {
 				StartCoroutine(Attack(attackSpeed));
 			}
 		} else {
+			anim.SetBool ("attacking", false);
+
 			// Move towards player
 			rb2d.MovePosition (transform.position + dir * speed * Time.deltaTime);
-
-			//anim.speed = 1;
-			anim.SetBool ("walking", true);
 		}
 
-		if (distance < 0.02f) {
+		if (!seesPlayer && distance < 0.02f) {
 			transform.position = target;
-			anim.SetBool ("walking", false);
+			anim.SetBool ("awake", false);
 		}
 	}
 
@@ -80,5 +93,18 @@ public class Enemy : MonoBehaviour {
 		}
 
 		attacking = false;
+	}
+
+	public void Attacked() {
+		if (--currentHP <= 0) {
+			Destroy (gameObject);
+		}
+	}
+
+	void OnGUI() {
+		Vector2 pos = Camera.main.WorldToScreenPoint (transform.position);
+
+		GUI.Box (new Rect (pos.x - 20, Screen.height - pos.y - 80, 40, 24),
+			currentHP + "/" + maxHP);
 	}
 }
