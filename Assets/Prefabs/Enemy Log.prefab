@@ -81,7 +81,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.75, y: 1.5625}
+    oldSize: {x: 2.1875, y: 1.5625}
     newSize: {x: 1.75, y: 1.5625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -122,6 +122,7 @@ MonoBehaviour:
   attackRadius: 2.5
   speed: 1.5
   rockPrefab: {fileID: 1668373343236258, guid: 578a68e82158d3147af106f2f9b05963, type: 2}
+  blowPrefab: {fileID: 1780645456112776, guid: 737dc11eb1497f14495c27896918a4b2, type: 2}
   attackSpeed: 2
   maxHP: 3
   currentHP: 0

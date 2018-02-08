@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour {
 
 	// Attack stuff
 	public GameObject rockPrefab;
+	public GameObject blowPrefab;
 	[Tooltip("Attack speed in seconds between consecutive attacks")]
 	public float attackSpeed;
 	bool attacking;
@@ -95,7 +96,8 @@ public class Enemy : MonoBehaviour {
 		attacking = false;
 	}
 
-	public void Attacked() {
+	public void Attacked(Vector3 attackPosition) {
+		Instantiate (blowPrefab, attackPosition + (transform.position - attackPosition) / 2, transform.rotation);
 		if (--currentHP <= 0) {
 			Destroy (gameObject);
 		}

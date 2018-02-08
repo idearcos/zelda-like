@@ -6,7 +6,7 @@ public class Attack : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col) {
 		if (col.tag == "Enemy") {
-			col.SendMessage ("Attacked");
+			col.SendMessage ("Attacked", transform.position);
 		}
 	}
 }
