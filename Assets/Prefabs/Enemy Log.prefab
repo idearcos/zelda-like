@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fixEveryFrame: 0
+  offset: 0
 --- !u!212 &212756192324618964
 SpriteRenderer:
   m_ObjectHideFlags: 1
