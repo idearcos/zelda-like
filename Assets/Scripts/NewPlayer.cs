@@ -20,7 +20,7 @@ public class NewPlayer : MonoBehaviour {
 	void Update () {
 		CaptureMovement ();
 		UpdateAnimation ();
-
+		UpdateAttack ();
 	}
 
 	void FixedUpdate() {
@@ -41,6 +41,15 @@ public class NewPlayer : MonoBehaviour {
 			animator.SetBool ("walking", true);
 		} else {
 			animator.SetBool ("walking", false);
+		}
+	}
+
+	void UpdateAttack() {
+		AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo (0);
+		bool attacking = stateInfo.IsName ("NewPlayer Attack");
+
+		if (Input.GetKeyDown ("space") && !attacking) {
+			animator.SetTrigger ("attacking");
 		}
 	}
 }

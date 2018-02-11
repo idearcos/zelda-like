@@ -6,7 +6,13 @@ public class LpcCharacter : MonoBehaviour {
 
 	public void UpdateSprites(int index) {
 		foreach (LpcSprite lpcSprite in GetComponentsInChildren<LpcSprite>()) {
-			lpcSprite.UpdateSprite (index);
+			lpcSprite.SetWalkSprite (index);
+		}
+	}
+
+	public void SetSlashSprites(int index) {
+		foreach (LpcSprite lpcSprite in GetComponentsInChildren<LpcSprite>()) {
+			lpcSprite.SetSlashSprite (index);
 		}
 	}
 

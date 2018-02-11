@@ -6,23 +6,43 @@ using UnityEditor;
 
 public class LpcSprite : MonoBehaviour {
 
-	public Texture2D spriteSheet;
+	public Texture2D walkSpriteSheet;
+	public Texture2D slashSpriteSheet;
 	SpriteRenderer spriteRenderer;
-	Sprite[] sprites;
+	Sprite[] walkSprites;
+	Sprite[] slashSprites;
 
-	public void UpdateSprite(int index) {
-		spriteRenderer.sprite = sprites [index];
+	public void SetWalkSprite(int index) {
+		if (walkSprites != null && index < walkSprites.Length) {
+			spriteRenderer.sprite = walkSprites [index];
+		} else {
+			spriteRenderer.sprite = null;
+		}
+	}
+
+	public void SetSlashSprite(int index) {
+		if (slashSprites != null && index < slashSprites.Length) {
+			spriteRenderer.sprite = slashSprites [index];
+		}
 	}
 
 	void Awake() {
-		Assert.IsNotNull (spriteSheet);
+		//Assert.IsNotNull (walkSpriteSheet);
+		//Assert.IsNotNull (slashSpriteSheet);
 	}
 
 	// Use this for initialization
 	void Start () {
 		// Remove the directories before "Resources", as well as the extension of the file
-		string spriteSheetPath = AssetDatabase.GetAssetPath (spriteSheet);
-		sprites = Resources.LoadAll<Sprite> (spriteSheetPath.Substring(17, spriteSheetPath.Length - 21));
+		if (walkSpriteSheet != null) {
+			string spriteSheetPath = AssetDatabase.GetAssetPath (walkSpriteSheet);
+			walkSprites = Resources.LoadAll<Sprite> (spriteSheetPath.Substring(17, spriteSheetPath.Length - 21));
+		}
+
+		if (slashSpriteSheet != null) {
+			string spriteSheetPath = AssetDatabase.GetAssetPath (slashSpriteSheet);
+			slashSprites = Resources.LoadAll<Sprite> (spriteSheetPath.Substring (17, spriteSheetPath.Length - 21));
+		}
 
 		spriteRenderer = GetComponent<SpriteRenderer> ();
 	}
